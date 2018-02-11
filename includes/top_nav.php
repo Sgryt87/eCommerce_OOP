@@ -19,7 +19,7 @@
                 <a href="../admin">Admin</a>
             </li>
             <li>
-                <a href="../checkout.php">Checkout</a>
+                <a href="../cart/buy.php">Checkout</a>
             </li>
             <li>
                 <a href="../contact.php">Contact</a>

@@ -1,6 +1,6 @@
 <?php
-include_once 'init.php';
-Template::header();
+include_once '../init.php';
+include '../includes/header.php';
 ?>
 
 
@@ -16,7 +16,7 @@ Template::header();
 
         <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
             <input type="hidden" name="cmd" value="_cart">
-            <input type="hidden" name="business" value="edwindiaz123-facilitator@gmail.com">
+            <input type="hidden" name="business" value="xxx-facilitator@gmail.com">
             <input type="hidden" name="currency_code" value="US">
             <table class="table table-striped">
                 <thead>
@@ -29,12 +29,38 @@ Template::header();
                 </tr>
                 </thead>
                 <tbody>
+                <?php
+                $db = Database::instance();
+                $productsInCart = Sessions::getProductsInCart();
+                foreach ($productsInCart as $product_id => $product_quantity) {
+                    $quantity = $product_quantity['quantity'];
+                    $product = $db->getProduct($product_id);
+                    $subtotal = $quantity * $product->price;
+                    $checkout = <<<CHECKOUT
+                <tr id="tr-$product->id">
+                    <td>$product->title</td>
+                    <td>&#36;$product->price</td>
+                    <td><span id="$product->id-quantity">$quantity</span>
+                    <input type="button" onclick="addToCart($product->id)" value="+"/>
+                    <input type="button" onclick="removeFromCart($product->id)" value="-"/>
+                    </td>
+                    <td id="$product->id-subtotal">&#36;$subtotal</td>
+                </tr>
+CHECKOUT;
+                    echo $checkout;
+                }
+                ?>
 
+
+                <!--                } else {-->
+                <!--                echo '<h3 class="">Your shopping cart is empty</h3>';-->
+                <!--                }-->
                 </tbody>
             </table>
-
+            <input type="image" name="upload"
+                   src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"
+                   alt="PayPal - The safer, easier way to pay online">
         </form>
-
 
         <!--  ***********CART TOTALS*************-->
 
@@ -76,4 +102,4 @@ Template::header();
 <!-- /.container -->
 
 
-<?php Template::footer(); ?>
+<?php include '../includes/footer.php'; ?>

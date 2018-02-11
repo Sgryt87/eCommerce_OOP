@@ -1,6 +1,6 @@
 <?php
 include_once 'init.php';
-Template::header();
+include 'includes/header.php';
 ?>
 
     <!-- Page Content -->
@@ -26,10 +26,9 @@ Template::header();
                 </form>
             </div>
 
-
         </header>
 
 
     </div>
 
-<?php Template::footer(); ?>
+<?php include 'includes/footer.php'; ?>

@@ -55,7 +55,7 @@ class Database
     {
         $query = "SELECT * FROM " . Product::$table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam('i', $id);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
         $product = null;
         while ($row = $stmt->fetch()) {
@@ -76,7 +76,12 @@ class Database
     {
         $query = "INSERT INTO " . Product::$table_name . "(title, category_id, price, quantity, description) VALUES(?,?,?,?,?)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam('sifis', $title, $category_id, $price, $quantity, $description);
+       // $stmt->bindParam('sifis', $title, $category_id, $price, $quantity, $description);
+        $stmt->bindParam(1, $title, PDO::PARAM_STR);
+        $stmt->bindParam(2, $category_id, PDO::PARAM_INT);
+        $stmt->bindParam(3, $price, PDO::PARAM_STR);
+        $stmt->bindParam(4, $quantity, PDO::PARAM_INT);
+        $stmt->bindParam(5, $description, PDO::PARAM_STR);
         return $stmt->execute();
     }
 
@@ -107,8 +112,9 @@ class Database
     public function getCategory($id)
     {
         $query = "SELECT * FROM " . Category::$table_name . " WHERE id = ?";
+        $query;
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam('i', $id);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
         $category = null;
         while ($row = $stmt->fetch()) {

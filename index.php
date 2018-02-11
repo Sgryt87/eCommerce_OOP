@@ -35,10 +35,12 @@ include 'includes/header.php'; ?>
                         <a href="item.php?id=$product->id"><img src=""
                          alt="$product->title"></a>
                         <div class="caption">
-                            <h4 class="pull-right">&#36;$product->price}</h4>
-                            <h4><a href="item.php?id=$product->id">$product->title</a></h4>
-                            <p>$product->description<a href="item.php?id=$product->id" target="_blank"></a></p>
-                            <a href="../resources/cart.php?add=$product->id" class="btn btn-primary" target="_blank">Add To Cart</a>
+                            <h4 class="pull-right">&#36;$product->price</h4>
+                            <h4>$product->title</h4>
+                            <p>$product->description</p>
+                            <a href="#" class="btn btn-primary" target="_blank">Add To Cart</a>
+                            <a href="../products/index.php?id=$product->id" class="btn btn-default" 
+                            target="_blank">Get Info</a>
                         </div>
                     </div>
                 </div>

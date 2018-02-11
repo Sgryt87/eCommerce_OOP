@@ -7,7 +7,7 @@
         foreach ($categories as $category) {
             $category_display = <<<CATEGORY
             
-                  <a href="" class="list-group-item">$category->title</a>
+                  <a href="../categories/index.php?id=$category->id" class="list-group-item">$category->title</a>
 CATEGORY;
             echo $category_display;
         }

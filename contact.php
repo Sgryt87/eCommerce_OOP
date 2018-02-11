@@ -1,6 +1,6 @@
 <?php
 include_once 'init.php';
-Template::header();
+include 'includes/header.php'
 ?>
 
     <!-- Contact Section -->
@@ -59,4 +59,4 @@ Template::header();
     </div>
 
 
-<?php Template::footer(); ?>
+<?php include "includes/footer.php"; ?>
