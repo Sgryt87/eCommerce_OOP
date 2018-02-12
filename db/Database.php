@@ -31,6 +31,8 @@ class Database
         return Database::$db;
     }
 
+    //PRODUCT
+
     public function getAllProducts()
     {
         $query = "SELECT * FROM " . Product::$table_name;
@@ -76,7 +78,7 @@ class Database
     {
         $query = "INSERT INTO " . Product::$table_name . "(title, category_id, price, quantity, description) VALUES(?,?,?,?,?)";
         $stmt = $this->conn->prepare($query);
-       // $stmt->bindParam('sifis', $title, $category_id, $price, $quantity, $description);
+        // $stmt->bindParam('sifis', $title, $category_id, $price, $quantity, $description);
         $stmt->bindParam(1, $title, PDO::PARAM_STR);
         $stmt->bindParam(2, $category_id, PDO::PARAM_INT);
         $stmt->bindParam(3, $price, PDO::PARAM_STR);
@@ -112,7 +114,6 @@ class Database
     public function getCategory($id)
     {
         $query = "SELECT * FROM " . Category::$table_name . " WHERE id = ?";
-        $query;
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -188,13 +189,157 @@ class Database
     {
         $query = "INSERT INTO " . User::$table_name . "(username, firstname, lastname, `password`, email, image, role) VALUES(?,?,?,?,?,?,?)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam('sssssss', $username, $firstname, $lastname, $password, $email, $image, $role);
+        $stmt->bindParam(1, $username, PDO::PARAM_STR);
+        $stmt->bindParam(2, $firstname, PDO::PARAM_STR);
+        $stmt->bindParam(3, $lastname, PDO::PARAM_STR);
+        $stmt->bindParam(4, $password, PDO::PARAM_STR);
+        $stmt->bindParam(5, $email, PDO::PARAM_STR);
+        $stmt->bindParam(6, $image, PDO::PARAM_STR);
+        $stmt->bindParam(7, $role, PDO::PARAM_STR);
         return $stmt->execute();
+    }
+
+//    public static function passwordHash($pass)
+//    {
+//        return $password = password_hash($pass, PASSWORD_BCRYPT, ['cost' > 12]);
+//    }
+//
+//    public static function passwordVerify($pass)
+//    {
+//        $password = $db->getUser()
+//        return password_verify($pass, $db->)
+//    }
+
+    public function isUserExists($username)
+    {
+        $query = "SELECT username FROM users WHERE username = '$username'";
+        $stmt = $this->conn->prepare($query);
+        return $stmt->fetchColumn() > 0;
+    }
+
+    public function isEmailExists($email)
+    {
+        $query = "SELECT email FROM users WHERE email = '$email'";
+        $stmt = $this->conn->prepare($query);
+        return $stmt->fetchColumn() > 0;
     }
 
     public function deleteUser($id)
     {
         $query = "DELETE FROM " . User::$table_name . " WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam('i', $id);
+        return $stmt->execute();
+    }
+
+    //ORDERS
+
+    public function getAllOrders()
+    {
+        $query = "SELECT * FROM " . Order::$table_name;
+        $stmt = $this->conn->query($query);
+        $orders = [];
+        while ($row = $stmt->fetch()) {
+            $order = new Order();
+            $order->id = $row['id'];
+            $order->price = $row['price'];
+            $order->transaction = $row['transaction'];
+            $order->status = $row['status'];
+            $order->currency = $row['currency'];
+//            $order->created = $row['created'];
+//            $order->modified = $row['modified'];
+            array_push($orders, $order);
+        }
+        return $orders;
+    }
+
+    public function getOrder($id)
+    {
+        $query = "SELECT * FROM " . Order::$table_name . " WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $order = null;
+        while ($row = $stmt->fetch()) {
+            $order = new Order();
+            $order->id = $row['id'];
+            $order->price = $row['price'];
+            $order->transaction = $row['transaction'];
+            $order->status = $row['status'];
+            $order->currency = $row['currency'];
+        }
+        return $order;
+    }
+
+    public function addOrder($price, $transaction, $status, $currency)
+    {
+        $query = "INSERT INTO " . Order::$table_name . "(price, `transaction`, `status`, currency) VALUES(?,?,?,?)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $price, PDO::PARAM_INT);
+        $stmt->bindParam(2, $transaction, PDO::PARAM_STR);
+        $stmt->bindParam(3, $status, PDO::PARAM_STR);
+        $stmt->bindParam(4, $currency, PDO::PARAM_STR);
+        return $stmt->execute();
+    }
+
+    public function deleteOrder($id)
+    {
+        $query = "DELETE FROM " . Order::$table_name . " WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam('i', $id);
+        return $stmt->execute();
+    }
+
+    //REPORTS
+
+    public function getAllReports()
+    {
+        $query = "SELECT * FROM " . Report::$table_name;
+        $stmt = $this->conn->query($query);
+        $reports = [];
+        while ($row = $stmt->fetch()) {
+            $report = new Report();
+            $report->id = $row['id'];
+            $report->product_id = $row['product_id'];
+            $report->user_id = $row['user_id'];
+            $report->order_id = $row['order_id'];
+            $report->purchased = $row['purchased'];
+            array_push($reports, $report);
+        }
+        return $reports;
+    }
+
+    public function getReport($id)
+    {
+        $query = "SELECT * FROM " . Report::$table_name . " WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $order = null;
+        while ($row = $stmt->fetch()) {
+            $report = new Report();
+            $report->id = $row['id'];
+            $report->product_id = $row['product_id'];
+            $report->user_id = $row['user_id'];
+            $report->order_id = $row['order_id'];
+            $report->purchased = $row['purchased'];
+        }
+        return $order;
+    }
+
+    public function addReport($product_id, $user_id, $order_id)
+    {
+        $query = "INSERT INTO " . Report::$table_name . "(product_id, user_id, order_id) VALUES(?,?,?)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $product_id, PDO::PARAM_INT);
+        $stmt->bindParam(2, $user_id, PDO::PARAM_INT);
+        $stmt->bindParam(3, $order_id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    public function deleteReport($id)
+    {
+        $query = "DELETE FROM " . Report::$table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam('i', $id);
         return $stmt->execute();

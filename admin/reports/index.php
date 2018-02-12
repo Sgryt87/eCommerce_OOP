@@ -21,8 +21,34 @@ include '../includes/header.php';
         <th>Price</th>
         <th>Product title</th>
         <th>Product quantity</th>
+        <th>Purchased</th>
+        <th>Delete</th>
     </tr>
     </thead>
+    <?php
+    $db = Database::instance();
+    $reports = $db->getAllReports();
+    foreach ($reports as $report) {
+        $reports_display = <<<REPORTS
+        <tr>
+        <td>$report->id</td>
+        <td>$report->product_id</td>
+        <td>$report->order_id</td>
+        <td>Price...</td>
+        <td>Product Title...</td>
+        <td>Prod Quantity...</td>
+        <td>$report->purchased</td>
+         <td>
+                <form action="" method="post">
+                <input type="hidden" name="id" value="$report->id">
+                <input type="submit" value="X" name="delete" class="btn btn-danger btn-sm">
+                </form>
+          </td>
+        </tr>
+REPORTS;
+        echo $reports_display;
+    }
+    ?>
     <tbody>
 
 

@@ -12,5 +12,4 @@ class User
     public $role;
     public $email;
     public $image;
-
 }

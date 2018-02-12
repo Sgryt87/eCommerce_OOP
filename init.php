@@ -12,6 +12,7 @@ include "models/Order.php";
 include "models/Product.php";
 include "models/Rating.php";
 include "models/User.php";
+include "models/Report.php";
 
 Sessions::start();
 
