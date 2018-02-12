@@ -168,7 +168,7 @@ class Database
     {
         $query = "SELECT * FROM " . User::$table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam('i', $id);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
         $user = null;
         while ($row = $stmt->fetch()) {

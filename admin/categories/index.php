@@ -61,6 +61,7 @@ include '../includes/header.php';
                 <input type="hidden" name="id" value="$category->id">
                 <input type="submit" value="Delete" name="delete" class="btn btn-danger btn-sm">
                 </form>
+                </td>
             </tr>
 CATEGORIES;
                 echo $categories_display;

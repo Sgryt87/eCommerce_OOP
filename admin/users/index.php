@@ -32,6 +32,8 @@ include '../includes/header.php';
                 <th>Password</th>
                 <th>Email</th>
                 <th>Role</th>
+                <th>Edit</th>
+                <th>Delete</th>
 <!--                <th>Created</th>-->
 
             </tr>
@@ -52,6 +54,12 @@ include '../includes/header.php';
                 <td>$user->password</td>
                 <td>$user->email</td>
                 <td>$user->role</td>
+                <td><a href="../users/edit.php?id=$user->id" class="btn btn-primary">Edit</a><td>
+                <form action="" method="post">
+                <input type="hidden" name="id" value="$user->id">
+                <input type="submit" value="Delete" name="delete" class="btn btn-danger btn-sm">
+                </form>
+                </td>
 
             </tr>
 USERS;
