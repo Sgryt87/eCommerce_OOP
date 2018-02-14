@@ -24,7 +24,7 @@ include '../includes/header.php';
                     <th>Transaction</th>
                     <th>Currency</th>
                     <th>Status</th>
-<!--                    <th>Ordered</th>-->
+                    <!--                    <th>Ordered</th>-->
                     <th>Delete</th>
                 </tr>
                 </thead>
@@ -32,8 +32,8 @@ include '../includes/header.php';
                 <?php
 
                 $db = Database::instance();
-
                 $orders = $db->getAllOrders();
+
                 foreach ($orders as $order) {
                     $orders_display = <<<ORDERS
 
@@ -54,6 +54,10 @@ include '../includes/header.php';
 ORDERS;
                     echo $orders_display;
 
+                    if (isset($_POST['id'])) {
+                        $order_delete = $db->deleteOrder($_POST['id']);
+                        Template::redirect('../orders/index.php');
+                    }
                 }
                 ?>
                 </tbody>

@@ -13,17 +13,18 @@ $confirm_passwordErr = '';
 
 
 if (isset($_POST['submit'])) {
-    Database::instance();
+    $db = Database::instance();
+
     $username = $_POST['username'];
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
     $email = $_POST['email'];
-    $user = $db->addUser($username, $firstname, $lastname, $password, $email);
+    $role = '';
 
-
-//username
+    /*
+    //username
     if (empty($username)) {
         $usernameErr = "Username Is Required";
     } else if (strlen($username) < 2) {
@@ -36,7 +37,7 @@ if (isset($_POST['submit'])) {
         }
     }
 
-//useremail
+    //useremail
     if (empty($user_email)) {
         $emailErr = "Email Is Required";
     } else {
@@ -47,20 +48,21 @@ if (isset($_POST['submit'])) {
         }
     }
 
-//first_name
+    //first_name
     if (empty($firstname)) {
         $firstNameErr = 'First Name Is Required';
     } else if (!preg_match("/^[a-zA-Z ]*$/", $firstname)) {
         $firstNameErr = 'Only Letters And White Space Allowed';
     }
 
-//last_name
+    //last_name
     if (empty($lastname)) {
         $lastNameErr = 'Last Name Is Required';
     } else if (!preg_match("/^[a-zA-Z ]*$/", $lastname)) {
         $lastNameErr = 'Only Letters And White Space Allowed';
     }
-//password
+
+    //password
     if (empty($password)) {
         $passwordErr = 'Password Is Required';
         if (empty($onfirm_password)) {
@@ -71,12 +73,11 @@ if (isset($_POST['submit'])) {
             $confirm_passwordErr = 'Password Doesn\'t Match';
         } else if (strlen($password) <= 2) { // has to be 8 digits
             $passwordErr = 'Your Password Must Contain At Least 8 Characters';
+        } elseif (!preg_match("#[0-9]+#", $user_password)) {
+            $passwordErr = "Your Password Must Contain At Least 1 Number!";
+        } elseif (!preg_match("#[A-Z]+#", $user_password)) {
+            $passwordErr = "Your Password Must Contain At Least 1 Capital Letter!";
         }
-//        elseif (!preg_match("#[0-9]+#", $user_password)) {
-//            $passwordErr = "Your Password Must Contain At Least 1 Number!";
-//        } elseif (!preg_match("#[A-Z]+#", $user_password)) {
-//            $passwordErr = "Your Password Must Contain At Least 1 Capital Letter!";
-//        }
     }
 
     if (
@@ -86,27 +87,14 @@ if (isset($_POST['submit'])) {
         $lastNameErr === '' &&
         $passwordErr === '' &&
         $confirm_passwordErr === '') {
+    */
 
+    $password = User::passwordHash($password);
 
-//        $password = password_hash($password, PASSWORD_BCRYPT, array('cost' > 12));
-//        $query = query("INSERT INTO users
-//                                    (username,
-//                                    user_email,
-//                                    user_password,
-//                                    user_firstname,
-//                                    user_lastname,
-//                                    user_role)
-//                              VALUES
-//                                    ('{$username}',
-//                                    '{$user_email}',
-//                                    '{$user_password}',
-//                                    '{$user_firstname}',
-//                                    '{$user_lastname}',
-//                                    'subscriber'
-//                                    )");
-//        confirmQuery($query);
+    $user = $db->addUser($username, $firstname, $lastname, $password, $email, $role = 'subscriber');
+
 //        setMessage('Congratulations, You Have Been Registered!');
-    }
+//    }
 } // end if
 
 
@@ -121,8 +109,9 @@ if (isset($_POST['submit'])) {
                         <h1>Registration</h1>
                         <h6 class="text-info">* - required fields</h6>
                         <br>
-                        <h5 class="text-center text-success bg-success center-block"><?php displayMessage(); ?></h5>
-                        <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
+
+                        <h5 class="text-center text-success bg-success center-block"><?php //message ?></h5>
+                        <form role="form" action="../registration.php" method="post" id="login-form" autocomplete="off">
                             <div class="form-group">
                                 <h6 class="text-info">*Username (Your Username Must Contain At Least 3 Characters)</h6>
                                 <label for="username" class="sr-only">Username</label>

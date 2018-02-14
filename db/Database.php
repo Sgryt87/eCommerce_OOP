@@ -36,7 +36,7 @@ class Database
     public function getAllProducts()
     {
         $query = "SELECT * FROM " . Product::$table_name;
-        $stmt = $this->conn->query($query); // built in query method;
+        $stmt = $this->conn->query($query);
         $products = [];
         while ($row = $stmt->fetch()) {
             $product = new Product();
@@ -78,7 +78,6 @@ class Database
     {
         $query = "INSERT INTO " . Product::$table_name . "(title, category_id, price, quantity, description) VALUES(?,?,?,?,?)";
         $stmt = $this->conn->prepare($query);
-        // $stmt->bindParam('sifis', $title, $category_id, $price, $quantity, $description);
         $stmt->bindParam(1, $title, PDO::PARAM_STR);
         $stmt->bindParam(2, $category_id, PDO::PARAM_INT);
         $stmt->bindParam(3, $price, PDO::PARAM_STR);
@@ -91,7 +90,7 @@ class Database
     {
         $query = "DELETE FROM " . Product::$table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam('i', $id);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
@@ -130,7 +129,7 @@ class Database
     {
         $query = "INSERT INTO " . Category::$table_name . "(title) VALUES(?)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam('s', $title);
+        $stmt->bindParam(1, $title, PDO::PARAM_STR);
         return $stmt->execute();
     }
 
@@ -138,7 +137,7 @@ class Database
     {
         $query = "DELETE FROM " . Category::$table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam('i', $id);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
@@ -199,36 +198,12 @@ class Database
         return $stmt->execute();
     }
 
-//    public static function passwordHash($pass)
-//    {
-//        return $password = password_hash($pass, PASSWORD_BCRYPT, ['cost' > 12]);
-//    }
-//
-//    public static function passwordVerify($pass)
-//    {
-//        $password = $db->getUser()
-//        return password_verify($pass, $db->)
-//    }
-
-    public function isUserExists($username)
-    {
-        $query = "SELECT username FROM users WHERE username = '$username'";
-        $stmt = $this->conn->prepare($query);
-        return $stmt->fetchColumn() > 0;
-    }
-
-    public function isEmailExists($email)
-    {
-        $query = "SELECT email FROM users WHERE email = '$email'";
-        $stmt = $this->conn->prepare($query);
-        return $stmt->fetchColumn() > 0;
-    }
 
     public function deleteUser($id)
     {
         $query = "DELETE FROM " . User::$table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam('i', $id);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
@@ -286,7 +261,7 @@ class Database
     {
         $query = "DELETE FROM " . Order::$table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam('i', $id);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
@@ -341,7 +316,7 @@ class Database
     {
         $query = "DELETE FROM " . Report::$table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam('i', $id);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 

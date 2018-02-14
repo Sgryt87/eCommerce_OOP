@@ -4,6 +4,7 @@ include "core/Config.php";
 include "core/Sessions.php";
 include "core/Utils.php";
 include "core/Cart.php";
+include "core/Template.php";
 
 
 include "db/Database.php";

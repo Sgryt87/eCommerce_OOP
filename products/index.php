@@ -1,7 +1,7 @@
 <?php
 
 include_once '../init.php';
-Utils::isSet('id');
+Utils::isSet('id', '../index.php');
 include '../includes/header.php';
 
 $db = Database::instance();

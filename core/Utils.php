@@ -11,10 +11,10 @@ class Utils
         }
     }
 
-    static public function isSet($key)
+    static public function isSet($key, $location)
     {
         if (!isset($_GET[$key])) {
-            header('Location: ../index.php');
+            header("Location: $location");
         };
     }
 }

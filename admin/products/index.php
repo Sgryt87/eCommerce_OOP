@@ -37,7 +37,7 @@ include '../includes/header.php';
         <td>$product->category_id</td>
         <td>$product->price</td>
         <td>$product->quantity</td>
-        <td><a href="edit.php?id=$product->id" class="btn btn-primary">Edit</a><td>
+        <td><a href="../products/edit.php?id=$product->id" class="btn btn-primary btn-sm">Edit</a><td>
         <td>
                 <form action="" method="post">
                 <input type="hidden" name="id" value="$product->id">
@@ -47,6 +47,10 @@ include '../includes/header.php';
     </tr>
 PRODUCTS;
         echo $products_display;
+        if (isset($_POST['id'])) {
+            $product_delete = $db->deleteProduct($_POST['id']);
+            Template::redirect('../products/index.php');
+        }
 
     }
 

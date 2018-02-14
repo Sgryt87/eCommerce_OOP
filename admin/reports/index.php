@@ -47,6 +47,11 @@ include '../includes/header.php';
         </tr>
 REPORTS;
         echo $reports_display;
+
+        if (isset($_POST['id'])) {
+            $report_delete = $db->deleteReport($_POST['id']);
+            Template::redirect('../reports/index.php');
+        }
     }
     ?>
     <tbody>

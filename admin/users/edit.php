@@ -2,7 +2,7 @@
 include "../../init.php";
 include '../includes/header.php';
 $db = Database::instance();
-$user = $db->getUser($_GET['id']);
+
 
 ?>
 <div class="row">

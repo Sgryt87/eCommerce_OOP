@@ -4,23 +4,18 @@ include '../includes/header.php';
 
 ?>
 <div class="row">
-    <div class="col-lg-12">
-
-
+    <div class="col-md-12">
         <h1 class="page-header">
             Users
-
         </h1>
-        <p class="bg-success">
+        <h3 class="bg-success">
 
-        </p>
-
+        </h3>
         <a href="../index.php?add_user" class="btn btn-primary">Add User</a>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
-
         <table class="table table-hover">
             <thead>
             <tr>
@@ -34,7 +29,7 @@ include '../includes/header.php';
                 <th>Role</th>
                 <th>Edit</th>
                 <th>Delete</th>
-<!--                <th>Created</th>-->
+<!--                <th>Joined</th>-->
 
             </tr>
             </thead>
@@ -55,6 +50,7 @@ include '../includes/header.php';
                 <td>$user->email</td>
                 <td>$user->role</td>
                 <td><a href="../users/edit.php?id=$user->id" class="btn btn-primary">Edit</a><td>
+                <td>
                 <form action="" method="post">
                 <input type="hidden" name="id" value="$user->id">
                 <input type="submit" value="Delete" name="delete" class="btn btn-danger btn-sm">
