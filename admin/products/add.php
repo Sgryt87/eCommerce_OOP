@@ -3,6 +3,7 @@ include "../../init.php";
 include '../includes/header.php';
 
 $db = Database::instance();
+$img_path_product = Config::getMediaProductRoot();
 
 $categories = $db->getAllCategories();
 if (isset($_POST['publish'])) {
@@ -11,9 +12,21 @@ if (isset($_POST['publish'])) {
     $price = $_POST['price'];
     $quantity = $_POST['quantity'];
     $description = $_POST['description'];
-    // $image = $_FILE['image'];
+    $image_tmp = $_FILES['file']['tmp_name'];
+    $image = $_FILES['file']['name'];
+    $unique_img = time() . '_' . $image;
+    echo $image_tmp . "<br>";
+    echo $img_path_product . $unique_img;
+    $res = move_uploaded_file($image_tmp, $img_path_product . $unique_img);
+
+    if (!$res) {
+        Sessions::setMessage('Image upload error');
+    } else {
+        Sessions::setMessage('Uploaded');
+    }
+
     //validation , then ->
-    $product = $db->addProduct($title, $category_id, $price, $quantity, $description);
+    $product = $db->addProduct($title, $category_id, $price, $quantity, $description, $unique_img);
 }
 ?>
 
@@ -22,6 +35,7 @@ if (isset($_POST['publish'])) {
             <h1 class="page-header">
                 Edit Product
             </h1>
+            <h3 class="alert-info"><?php echo Sessions::getMessage(); ?></h3>
         </div>
     </div>
 
@@ -46,12 +60,6 @@ if (isset($_POST['publish'])) {
                     </div>
 
 
-                    <!--            <div class="form-group">-->
-                    <!--                <label for="product-title">Product Short Description</label>-->
-                    <!--                <textarea name="short_desc" id="" cols="30" rows="3" class="form-control"></textarea>-->
-                    <!--            </div>-->
-
-
                 </div><!--Main Content-->
 
 
@@ -72,10 +80,9 @@ if (isset($_POST['publish'])) {
                             foreach ($categories as $category) {
                                 $categories_display = <<<CATEGORIES
 
-                                <option>$category->title</option>
+                                <option value="$category->id">$category->title</option>
 CATEGORIES;
                                 echo $categories_display;
-
                             }
 
                             ?>

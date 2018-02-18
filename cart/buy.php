@@ -40,11 +40,12 @@ include '../includes/header.php';
                 <tr id="tr-$product->id">
                     <td>$product->title</td>
                     <td>&#36;$product->price</td>
-                    <td><span id="$product->id-quantity">$quantity</span>
-                    <input type="button" onclick="addToCart($product->id)" value="+"/>
-                    <input type="button" onclick="removeFromCart($product->id)" value="-"/>
+                    <td><span id="quantity-$product->id">$quantity</span>
+                    <input id="cart_add_btn-$product->id" type="button" onclick="addToCart($product->id)" value="+"/>
+                    <input id="cart_remove_btn-$product->id" type="button" onclick="removeFromCart($product->id)" 
+                    value="-"/>
                     </td>
-                    <td id="$product->id-subtotal">&#36;$subtotal</td>
+                    <td id="subtotal-$product->id-">&#36;$subtotal</td>
                 </tr>
 CHECKOUT;
                     echo $checkout;

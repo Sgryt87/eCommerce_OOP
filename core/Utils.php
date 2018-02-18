@@ -11,7 +11,7 @@ class Utils
         }
     }
 
-    static public function isSet($key, $location)
+    static public function redirectIfSet($key, $location)
     {
         if (!isset($_GET[$key])) {
             header("Location: $location");

@@ -1,6 +1,6 @@
 <?php
 
-class User extends Database
+class User
 {
     static public $table_name = 'users';
 
@@ -14,19 +14,21 @@ class User extends Database
     public $image;
 
 
-    public function isUserExists($username)
+    public static function isUserExists($username)
     {
-        $query = "SELECT username FROM users WHERE username = ?";
-        $stmt = $this->conn->prepare($query);
+        $db = Database::instance();
+        $query = "SELECT username FROM " . self::$table_name . " WHERE username = ?";
+        $stmt = $db->conn->prepare($query);
         $stmt->bindParam(1, $username, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetchColumn() > 0;
     }
 
-    public function isEmailExists($email)
+    public static function isEmailExists($email)
     {
-        $query = "SELECT username FROM users WHERE email = ?";
-        $stmt = $this->conn->prepare($query);
+        $db = Database::instance();
+        $query = "SELECT email FROM " . self::$table_name . " WHERE email = ?";
+        $stmt = $db->conn->prepare($query);
         $stmt->bindParam(1, $email, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetchColumn() > 0;
@@ -46,6 +48,6 @@ class User extends Database
 
 //    public static function passwordVerify($pass)
 //    {
-//        return password_verify($pass, getUserPassword($id));
+//        return password_verify($pass, $db_pass);
 //    }
 }

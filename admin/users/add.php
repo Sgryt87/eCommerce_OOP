@@ -1,7 +1,7 @@
 <?php
 include "../../init.php";
 include '../includes/header.php';
-
+$img_path_user = $_SERVER['DOCUMENT_ROOT'] . Config::DS . Config::MEDIA_USER;
 ?>
 <h1 class="page-header">
     Add User

@@ -6,10 +6,13 @@ function addToCart(id) {
             id: id
         },
         success: function (data) {
-            if (data == 0) {
-                $('#' + id + '-quantity').parent.empty();
+            console.log(data);
+            var data = JSON.parse(data);
+            $('#cartTopNav').text(data.total_amount);
+            if (data.cart_amount >= data.db_amount) {
+                $('#cart_add_btn-' + data.id).prop('disabled', true);
             } else {
-                $('#' + id + '-quantity').html(data);
+                $('#quantity-' + data.id).html(data.cart_amount);
             }
         },
         type: 'POST'
@@ -26,12 +29,13 @@ function removeFromCart(id) {
         },
         success: function (data) {
             console.log(data);
-            if (data == 0) {
-                console.log($('#tr-' + id));
-                $('#tr-' + id).empty();
+            var data = JSON.parse(data);
+            $('#cartTopNav').text(data.total_amount);
+            if (data.cart_amount == 0) {
+                $('#tr-' + data.id).empty();
             } else {
-                $('#' + id + '-quantity').html(data);
-                console.log($('#tr-' + id));
+                $('#cart_add_btn-' + data.id).prop('disabled', false);
+                $('#quantity-' + data.id).html(data.cart_amount);
             }
         },
         type: 'POST'

@@ -13,13 +13,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li>
-                <a href="../login.php">Login</a>
-            </li>
-            <li>
                 <a href="../admin">Admin</a>
-            </li>
-            <li>
-                <a href="../cart/buy.php">Checkout</a>
             </li>
             <li>
                 <a href="../contact.php">Contact</a>
@@ -28,9 +22,13 @@
                 <a href="../registration.php">Registration</a>
             </li>
             <li>
-                <a href="../contact.php" class="glyphicon glyphicon-shopping-cart"></a>
+                <a href="../login.php">Login</a>
             </li>
-
+            <li>
+                <a href="../cart/buy.php"><i class="glyphicon glyphicon-shopping-cart"></i>Cart<span
+                            id="cartTopNav"><?php echo
+                        Sessions::getAllProduct(); ?></span></a>
+            </li>
         </ul>
 
     </div>

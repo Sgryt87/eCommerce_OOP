@@ -1,6 +1,6 @@
 <?php
 include "../../init.php";
-Utils::isSet('id', '../products/index.php');
+Utils::redirectIfSet('id', '../products/index.php');
 include '../includes/header.php';
 
 $db = Database::instance();

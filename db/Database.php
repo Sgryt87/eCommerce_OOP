@@ -68,26 +68,30 @@ class Database
             $product->price = $row['price'];
             $product->quantity = $row['quantity'];
             $product->description = $row['description'];
+            $product->image = $row['image'];
             $product->created = $row['created'];
             $product->modified = $row['modified'];
         }
         return $product;
     }
 
-    public function addProduct($title, $category_id, $price, $quantity, $description)
+    public function addProduct($title, $category_id, $price, $quantity, $description, $image)
     {
-        $query = "INSERT INTO " . Product::$table_name . "(title, category_id, price, quantity, description) VALUES(?,?,?,?,?)";
+        $query = "INSERT INTO " . Product::$table_name . "(title, category_id, price, quantity, description, image) VALUES(?,?,?,?,?,?)";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $title, PDO::PARAM_STR);
         $stmt->bindParam(2, $category_id, PDO::PARAM_INT);
         $stmt->bindParam(3, $price, PDO::PARAM_STR);
         $stmt->bindParam(4, $quantity, PDO::PARAM_INT);
         $stmt->bindParam(5, $description, PDO::PARAM_STR);
+        $stmt->bindParam(6, $image, PDO::PARAM_STR);
         return $stmt->execute();
     }
 
     public function deleteProduct($id)
     {
+        $product = $this->getProduct($id);
+        File::deleteProductImage($product->image);
         $query = "DELETE FROM " . Product::$table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
@@ -186,6 +190,7 @@ class Database
 
     public function addUser($username, $firstname, $lastname, $password, $email, $image, $role = 'subscriber')
     {
+        $password = User::passwordHash($password);
         $query = "INSERT INTO " . User::$table_name . "(username, firstname, lastname, `password`, email, image, role) VALUES(?,?,?,?,?,?,?)";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $username, PDO::PARAM_STR);
@@ -319,6 +324,5 @@ class Database
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
-
 }
 

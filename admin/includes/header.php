@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>ADMIN</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../../libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -72,24 +72,34 @@
 
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav side-nav">
-                        <li class="active">
+                        <li
+                            <?php //if ($active == 'index') echo "class='active'"; ?>
+                        >
                             <a href="../index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                         </li>
-
-                        <li class="">
+                        <li
+                            <?php //if ($active == 'orders') echo "class='active'"; ?>
+                        >
                             <a href="../orders/index.php"><i class="fa fa-fw fa-dashboard"></i>Orders</a>
                         </li>
-
-                        <li class="">
+                        <li
+                            <?php //if ($active == 'reports') echo "class='active'"; ?>
+                        >
                             <a href="../reports/index.php"><i class="fa fa-fw fa-dashboard"></i>Reports</a>
                         </li>
-                        <li>
+                        <li
+                            <?php //if ($active == 'products') echo "class='active'"; ?>
+                        >
                             <a href="../products/index.php"><i class="fa fa-fw fa-bar-chart-o"></i> View Products</a>
                         </li>
-                        <li>
+                        <li
+                            <?php //if ($active == 'categories') echo "class='active'"; ?>
+                        >
                             <a href="../categories/index.php"><i class="fa fa-fw fa-desktop"></i> Categories</a>
                         </li>
-                        <li>
+                        <li
+                            <?php //if ($active == 'users') echo "class='active'"; ?>
+                        >
                             <a href="../users/index.php"><i class="fa fa-fw fa-wrench"></i>Users</a>
                         </li>
                     </ul>

@@ -7,7 +7,7 @@ include 'includes/header.php'; ?>
 
         <div class="row">
 
-            <?php include 'includes/side_nav.php' ?>
+            <?php include 'includes/side_nav.php'; ?>
 
 
             <div class="col-md-9">
@@ -16,8 +16,8 @@ include 'includes/header.php'; ?>
 
                     <div class="col-md-12">
 
-                        <? include 'includes/slider.php' ?>
-
+                        <? include 'includes/slider.php';
+                        ?>
                     </div>
 
                 </div>
@@ -38,9 +38,10 @@ include 'includes/header.php'; ?>
                             <h4 class="pull-right">&#36;$product->price</h4>
                             <h4>$product->title</h4>
                             <p>$product->description</p>
-                            <a href="#" class="btn btn-primary" target="_blank">Add To Cart</a>
+                            <button class="btn btn-primary" onclick="addToCart($product->id)">Add
+                            </button>
                             <a href="../products/index.php?id=$product->id" class="btn btn-default" 
-                            target="_blank">Get Info</a>
+                            target="_blank">Info</a>
                         </div>
                     </div>
                 </div>

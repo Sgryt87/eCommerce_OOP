@@ -3,7 +3,6 @@
 
 class Sessions
 {
-
     // --? check ?? below
     /*
     private $signed_in = false;
@@ -83,6 +82,25 @@ class Sessions
     */
 
 // for unauthorised users?
+
+
+    static public function setMessage($msg)
+    {
+        $_SESSION['message'] = $msg;
+    }
+
+    static public function getMessage()
+    {
+        if (isset($_SESSION['message'])) {
+            $message = $_SESSION['message'];
+            unset($_SESSION['message']);
+            return $message;
+        } else {
+            return '';
+        }
+    }
+
+
     static public function start()
     {
         ob_start();
@@ -94,24 +112,48 @@ class Sessions
         session_destroy();
     }
 
+    static public function getAllProduct()
+    {
+        $sum = 0;
+        if (isset($_SESSION['cart'])) {
+            foreach ($_SESSION['cart'] as $key => $value) {
+                $sum += $value['quantity'];
+            }
+        }
+        return $sum;
+    }
+
     static public function getProductsCount($id)
     {
-        return $_SESSION['cart'][$id]['quantity'];
+        if (isset($_SESSION['cart']) && isset($_SESSION['cart'][$id])) {
+            return $_SESSION['cart'][$id]['quantity'];
+        } else {
+            return 0;
+        }
     }
 
     static public function getProductsInCart()
     {
-        return $_SESSION['cart'];
+        if (isset($_SESSION['cart'])) {
+            return $_SESSION['cart'];
+        }
     }
 
     static public function addToCart($id)
     {
-        $_SESSION['cart'][$id]['quantity']++;
+        if (isset($_SESSION['cart']) && isset($_SESSION['cart'][$id]) && isset($_SESSION['cart'][$id]['quantity'])) {
+            $_SESSION['cart'][$id]['quantity']++;
+        } else {
+            $_SESSION['cart'][$id]['quantity'] = 1;
+        }
     }
 
     static public function removeFromCart($id)
     {
         $_SESSION['cart'][$id]['quantity']--;
+        if ($_SESSION['cart'][$id]['quantity'] === 0) {
+            unset($_SESSION['cart'][$id]);
+        }
     }
 
     static public function emptyCart()

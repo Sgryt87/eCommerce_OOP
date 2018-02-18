@@ -30,6 +30,7 @@ CREATE TABLE `products` (
   `price` float NOT NULL,
   `quantity` int(11) NOT NULL,
   `description` text NOT NULL,
+  `image` VARCHAR(255) NOT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

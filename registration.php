@@ -89,8 +89,6 @@ if (isset($_POST['submit'])) {
         $confirm_passwordErr === '') {
     */
 
-    $password = User::passwordHash($password);
-
     $user = $db->addUser($username, $firstname, $lastname, $password, $email, $role = 'subscriber');
 
 //        setMessage('Congratulations, You Have Been Registered!');
