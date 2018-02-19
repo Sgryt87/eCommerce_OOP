@@ -46,6 +46,7 @@ class Database
             $product->price = $row['price'];
             $product->quantity = $row['quantity'];
             $product->description = $row['description'];
+            $product->image = $row['image'];
             $product->created = $row['created'];
             $product->modified = $row['modified'];
             array_push($products, $product);
@@ -85,6 +86,20 @@ class Database
         $stmt->bindParam(4, $quantity, PDO::PARAM_INT);
         $stmt->bindParam(5, $description, PDO::PARAM_STR);
         $stmt->bindParam(6, $image, PDO::PARAM_STR);
+        return $stmt->execute();
+    }
+
+    public function updateProduct($title, $category_id, $price, $quantity, $description, $image, $id)
+    {
+        $query = "UPDATE " . Product::$table_name . " SET title = ?, category_id = ?, price = ?, quantity = ?, description =?, image = ? WHERE id = 26";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $title, PDO::PARAM_STR);
+        $stmt->bindParam(2, $category_id, PDO::PARAM_INT);
+        $stmt->bindParam(3, $price, PDO::PARAM_STR);
+        $stmt->bindParam(4, $quantity, PDO::PARAM_INT);
+        $stmt->bindParam(5, $description, PDO::PARAM_STR);
+        $stmt->bindParam(6, $image, PDO::PARAM_STR);
+        //$stmt->bindParam(7, $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
@@ -162,6 +177,8 @@ class Database
             $user->role = $row['role'];
             $user->email = $row['email'];
             $user->image = $row['image'];
+            $user->created_at = $row['created_at'];
+            $user->modified = $row['modified'];
             array_push($users, $user);
         }
         return $users;
@@ -184,6 +201,8 @@ class Database
             $user->role = $row['role'];
             $user->email = $row['email'];
             $user->image = $row['image'];
+            $user->created = $row['created'];
+            $user->modified = $row['modified'];
         }
         return $user;
     }

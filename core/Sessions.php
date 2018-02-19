@@ -18,26 +18,6 @@ class Sessions
         $this->check_message();
     }
 
-    public function message($msg = '')
-    {
-        if (!empty($msg)) {
-            return $_SESSION['message'] = $msg;
-        } else {
-            return $this->message;
-        }
-
-    }
-
-    public function check_message()
-    {
-        if (isset($_SESSION['message'])) {
-            $this->message = $_SESSION['message'];
-            unset($_SESSION['message']);
-        } else {
-            $this->message = '';
-        }
-    }
-
     public function visitor_count()
     {
         if (isset($_SESSION['count'])) {
@@ -100,7 +80,6 @@ class Sessions
         }
     }
 
-
     static public function start()
     {
         ob_start();
@@ -112,54 +91,6 @@ class Sessions
         session_destroy();
     }
 
-    static public function getAllProduct()
-    {
-        $sum = 0;
-        if (isset($_SESSION['cart'])) {
-            foreach ($_SESSION['cart'] as $key => $value) {
-                $sum += $value['quantity'];
-            }
-        }
-        return $sum;
-    }
-
-    static public function getProductsCount($id)
-    {
-        if (isset($_SESSION['cart']) && isset($_SESSION['cart'][$id])) {
-            return $_SESSION['cart'][$id]['quantity'];
-        } else {
-            return 0;
-        }
-    }
-
-    static public function getProductsInCart()
-    {
-        if (isset($_SESSION['cart'])) {
-            return $_SESSION['cart'];
-        }
-    }
-
-    static public function addToCart($id)
-    {
-        if (isset($_SESSION['cart']) && isset($_SESSION['cart'][$id]) && isset($_SESSION['cart'][$id]['quantity'])) {
-            $_SESSION['cart'][$id]['quantity']++;
-        } else {
-            $_SESSION['cart'][$id]['quantity'] = 1;
-        }
-    }
-
-    static public function removeFromCart($id)
-    {
-        $_SESSION['cart'][$id]['quantity']--;
-        if ($_SESSION['cart'][$id]['quantity'] === 0) {
-            unset($_SESSION['cart'][$id]);
-        }
-    }
-
-    static public function emptyCart()
-    {
-        unlink($_SESSION['cart']);
-    }
 }
 
 

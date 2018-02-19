@@ -6,15 +6,14 @@ include '../includes/header.php';
 
 <h1 class="page-header">
     All Products
-
 </h1>
 
-<h3 class="bg-success"></h3>
+<h3 class="bg-success"><?php echo Sessions::getMessage(); ?></h3>
+<a href="../products/add.php" class="btn btn-default">Add Product</a>
+<br>
 <table class="table table-hover">
 
-
     <thead>
-
     <tr>
         <th>Id</th>
         <th>Title</th>
@@ -31,9 +30,13 @@ include '../includes/header.php';
     $products = $db->getAllProducts();
     foreach ($products as $product) {
         $products_display = <<<PRODUCTS
+        
         <tr>
         <td>$product->id</td>
-        <td>$product->title</td>
+        <td>$product->title
+        <br>
+        <img src="../../media/product_images/$product->image" alt="$product->title" width="100px">
+        </td>
         <td>$product->category_id</td>
         <td>$product->price</td>
         <td>$product->quantity</td>
@@ -51,11 +54,8 @@ PRODUCTS;
             $product_delete = $db->deleteProduct($_POST['id']);
             Template::redirect('../products/index.php');
         }
-
     }
-
     ?>
-
 
     </tbody>
 </table>

@@ -11,7 +11,6 @@ include '../includes/header.php';
         <h3 class="bg-success">
 
         </h3>
-        <a href="../index.php?add_user" class="btn btn-primary">Add User</a>
     </div>
 </div>
 <div class="row">
@@ -27,10 +26,8 @@ include '../includes/header.php';
                 <th>Password</th>
                 <th>Email</th>
                 <th>Role</th>
-                <th>Edit</th>
-                <th>Delete</th>
-<!--                <th>Joined</th>-->
-
+                <th>Disable Activate Delete</th>
+                <th>Joined</th>
             </tr>
             </thead>
             <tbody>
@@ -43,20 +40,21 @@ include '../includes/header.php';
             <tr>
                 <td>$user->id</td>
                 <td>$user->username</td>
-                <td>$user->image</td>
+                <td><img src="$user->image" width="100px"></td>
                 <td>$user->firstname</td>
                 <td>$user->lastname</td>
                 <td>$user->password</td>
                 <td>$user->email</td>
                 <td>$user->role</td>
-                <td><a href="../users/edit.php?id=$user->id" class="btn btn-primary">Edit</a><td>
                 <td>
                 <form action="" method="post">
                 <input type="hidden" name="id" value="$user->id">
+                <input type="submit" value="Disable" name="disable" class="btn btn-warning btn-sm">
+                <input type="submit" value="Activate" name="activate" class="btn btn-success btn-sm">
                 <input type="submit" value="Delete" name="delete" class="btn btn-danger btn-sm">
                 </form>
                 </td>
-
+                <td>$user->created_at</td>  
             </tr>
 USERS;
                 echo $users_display;

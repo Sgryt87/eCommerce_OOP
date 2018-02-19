@@ -12,6 +12,8 @@ class User
     public $role;
     public $email;
     public $image;
+    public $created;
+    public $modified;
 
 
     public static function isUserExists($username)

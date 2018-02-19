@@ -5,8 +5,30 @@ include '../includes/header.php';
 
 $db = Database::instance();
 $product = $db->getProduct($_GET['id']);
+$img_path_product = Config::getMediaProductRoot();
 $categories = $db->getAllCategories();
+if (isset($_POST['publish'])) {
+    $id = $_POST['id'];
+    $title = $_POST['title'];
+    $category_id = $_POST['category_id'];
+    $price = $_POST['price'];
+    $quantity = $_POST['quantity'];
+    $description = $_POST['description'];
 
+    $image_tmp = $_FILES['file']['tmp_name'];
+    $image = $_FILES['file']['name'];
+
+    $unique_img = File::makeImageUnique($image);
+    $res = File::uploadProductImage($image_tmp, $unique_img);
+
+    if (!$res) {
+        Sessions::setMessage('Image upload error');
+    } else {
+
+        Sessions::setMessage('Uploaded');
+    }
+    //redirect to index
+}
 ?>
 
     <div class="row">
@@ -38,18 +60,10 @@ $categories = $db->getAllCategories();
                                   class="form-control"><?php echo $product->description; ?></textarea>
                     </div>
 
-
-                    <!--            <div class="form-group">-->
-                    <!--                <label for="product-title">Product Short Description</label>-->
-                    <!--                <textarea name="short_desc" id="" cols="30" rows="3" class="form-control"></textarea>-->
-                    <!--            </div>-->
-
-
                 </div><!--Main Content-->
 
 
                 <!-- SIDEBAR-->
-
 
                 <aside id="admin_sidebar" class="col-md-4">
 
@@ -66,12 +80,10 @@ $categories = $db->getAllCategories();
                             foreach ($categories as $category) {
                                 $categories_display = <<<CATEGORIES
 
-                                <option>$category->title</option>
+                                <option value="$category->id">$category->title</option>
 CATEGORIES;
                                 echo $categories_display;
-
                             }
-
                             ?>
                         </select>
                     </div>
@@ -97,18 +109,9 @@ CATEGORIES;
                     </div>
 
 
-                    <!-- Product Tags -->
-
-
-                    <!--  <div class="form-group">
-                           <label for="product-title">Product Keywords</label>
-                           <hr>
-                         <input type="text" name="product_tags" class="form-control">
-                     </div>
-                  -->
                     <!-- Product Image -->
                     <div class="form-group">
-                        <img src="<?php echo $product->image; ?>"
+                        <img src="<?php echo Config::getMediaProductImageUrl() . $product->image; ?>"
                              alt="<?php echo $product->title ?>" width="294px;">
                     </div>
                     <div class="form-group">

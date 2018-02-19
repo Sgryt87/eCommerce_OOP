@@ -19,7 +19,7 @@ CREATE TABLE `reports` (
   `product_id` INT(11) NOT NULL,
   `user_id` INT(11) NOT NULL,
   `order_id` INT(11) NOT NULL,
-  `purchased` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `purchased` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `products` (
@@ -32,7 +32,7 @@ CREATE TABLE `products` (
   `description` text NOT NULL,
   `image` VARCHAR(255) NOT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `ratings` (
@@ -52,6 +52,8 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `role` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `image` varchar(255) NOT NULL
+  `image` varchar(255) NOT NULL,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

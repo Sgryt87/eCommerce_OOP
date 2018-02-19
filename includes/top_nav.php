@@ -25,9 +25,9 @@
                 <a href="../login.php">Login</a>
             </li>
             <li>
-                <a href="../cart/buy.php"><i class="glyphicon glyphicon-shopping-cart"></i>Cart<span
+                <a href="../cart/index.php"><i class="glyphicon glyphicon-shopping-cart"></i>Cart<span
                             id="cartTopNav"><?php echo
-                        Sessions::getAllProduct(); ?></span></a>
+                        Cookie::getAllProductCount() ?></span></a>
             </li>
         </ul>
 

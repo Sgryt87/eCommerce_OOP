@@ -90,12 +90,12 @@
                         <li
                             <?php //if ($active == 'products') echo "class='active'"; ?>
                         >
-                            <a href="../products/index.php"><i class="fa fa-fw fa-bar-chart-o"></i> View Products</a>
+                            <a href="../products/index.php"><i class="fa fa-fw fa-bar-chart-o"></i>Products</a>
                         </li>
                         <li
                             <?php //if ($active == 'categories') echo "class='active'"; ?>
                         >
-                            <a href="../categories/index.php"><i class="fa fa-fw fa-desktop"></i> Categories</a>
+                            <a href="../categories/index.php"><i class="fa fa-fw fa-desktop"></i>Categories</a>
                         </li>
                         <li
                             <?php //if ($active == 'users') echo "class='active'"; ?>

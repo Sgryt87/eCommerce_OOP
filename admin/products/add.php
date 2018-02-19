@@ -14,11 +14,8 @@ if (isset($_POST['publish'])) {
     $description = $_POST['description'];
     $image_tmp = $_FILES['file']['tmp_name'];
     $image = $_FILES['file']['name'];
-    $unique_img = time() . '_' . $image;
-    echo $image_tmp . "<br>";
-    echo $img_path_product . $unique_img;
-    $res = move_uploaded_file($image_tmp, $img_path_product . $unique_img);
-
+    $unique_img = File::makeImageUnique($image);
+    $res = File::uploadProductImage($image_tmp, $unique_img);
     if (!$res) {
         Sessions::setMessage('Image upload error');
     } else {
@@ -27,6 +24,7 @@ if (isset($_POST['publish'])) {
 
     //validation , then ->
     $product = $db->addProduct($title, $category_id, $price, $quantity, $description, $unique_img);
+
 }
 ?>
 
@@ -35,7 +33,7 @@ if (isset($_POST['publish'])) {
             <h1 class="page-header">
                 Edit Product
             </h1>
-            <h3 class="alert-info"><?php echo Sessions::getMessage(); ?></h3>
+            <h3 class="alert-info"></h3>
         </div>
     </div>
 

@@ -7,13 +7,14 @@ if (isset($_POST['id'])) {
     $db = Database::instance();
     $product = $db->getProduct($id);
     $quantity = $product->quantity;
-    if (Sessions::getProductsCount($id) > 0) {
-        Sessions::removeFromCart($id);
+    $cart_quantity = Cookie::getProductsCount($id);
+    if ($cart_quantity > 0) {
+        Cookie::removeProduct($id);
         $productArray = [
             'id' => $id,
             'db_amount' => $quantity,
-            'cart_amount' => Sessions::getProductsCount($id),
-            'total_amount' => Sessions::getAllProduct()
+            'cart_amount' => $cart_quantity - 1,
+            'total_amount' => Cookie::getAllProductCount() - 1
         ];
         echo json_encode($productArray);
     } else {

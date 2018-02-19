@@ -6,6 +6,7 @@ include "core/Utils.php";
 include "core/Cart.php";
 include "core/Template.php";
 include "core/File.php";
+include "core/Cookie.php";
 
 
 include "db/Database.php";
