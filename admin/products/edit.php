@@ -27,7 +27,7 @@ if (isset($_POST['publish'])) {
 
         Sessions::setMessage('Uploaded');
     }
-    //redirect to index
+    $product = $db->updateProduct($title, $category_id, $price, $quantity, $description, $unique_img, $id);
 }
 ?>
 

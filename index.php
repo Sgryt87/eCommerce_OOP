@@ -32,7 +32,7 @@ include 'includes/header.php'; ?>
                         
                     <div class="col-sm-4 col-lg-4 col-md-4">
                     <div class="thumbnail">
-                        <a href="item.php?id=$product->id"><img src=""
+                        <a href="item.php?id=$product->id"><img src="../media/product_images/{$product->image}"
                          alt="$product->title"></a>
                         <div class="caption">
                             <h4 class="pull-right">&#36;$product->price</h4>

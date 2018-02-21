@@ -91,7 +91,7 @@ class Database
 
     public function updateProduct($title, $category_id, $price, $quantity, $description, $image, $id)
     {
-        $query = "UPDATE " . Product::$table_name . " SET title = ?, category_id = ?, price = ?, quantity = ?, description =?, image = ? WHERE id = 26";
+        $query = "UPDATE " . Product::$table_name . " SET title = ?, category_id = ?, price = ?, quantity = ?, description =?, image = ? WHERE id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $title, PDO::PARAM_STR);
         $stmt->bindParam(2, $category_id, PDO::PARAM_INT);
@@ -99,7 +99,7 @@ class Database
         $stmt->bindParam(4, $quantity, PDO::PARAM_INT);
         $stmt->bindParam(5, $description, PDO::PARAM_STR);
         $stmt->bindParam(6, $image, PDO::PARAM_STR);
-        //$stmt->bindParam(7, $id, PDO::PARAM_INT);
+        $stmt->bindParam(7, $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
@@ -152,7 +152,17 @@ class Database
         return $stmt->execute();
     }
 
-    public function deleteCategory($id)
+    public function updateCategory($title, $id)
+    {
+        $query = "UPDATE " . Category::$table_name . " SET title = ? WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $title, PDO::PARAM_STR);
+        $stmt->bindParam(2, $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    public
+    function deleteCategory($id)
     {
         $query = "DELETE FROM " . Category::$table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
@@ -160,9 +170,10 @@ class Database
         return $stmt->execute();
     }
 
-    //USER
+//USER
 
-    public function getAllUsers()
+    public
+    function getAllUsers()
     {
         $query = "SELECT * FROM " . User::$table_name;
         $stmt = $this->conn->query($query); // built in query method;
@@ -177,14 +188,15 @@ class Database
             $user->role = $row['role'];
             $user->email = $row['email'];
             $user->image = $row['image'];
-            $user->created_at = $row['created_at'];
+            $user->created_at = $row['created'];
             $user->modified = $row['modified'];
             array_push($users, $user);
         }
         return $users;
     }
 
-    public function getUser($id)
+    public
+    function getUser($id)
     {
         $query = "SELECT * FROM " . User::$table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
@@ -207,7 +219,8 @@ class Database
         return $user;
     }
 
-    public function addUser($username, $firstname, $lastname, $password, $email, $image, $role = 'subscriber')
+    public
+    function addUser($username, $firstname, $lastname, $password, $email, $image, $role = 'subscriber')
     {
         $password = User::passwordHash($password);
         $query = "INSERT INTO " . User::$table_name . "(username, firstname, lastname, `password`, email, image, role) VALUES(?,?,?,?,?,?,?)";
@@ -222,8 +235,26 @@ class Database
         return $stmt->execute();
     }
 
+    public
+    function updateUser($username, $firstname, $lastname, $password, $email, $image, $role, $id)
+    {
+        $password = User::passwordHash($password);
+        $query = "UPDATE " . User::$table_name . " SET username = ?, firstname = ?, lastname = ?, `password` = ?, email = ?, image =? , role =? WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $username, PDO::PARAM_STR);
+        $stmt->bindParam(2, $firstname, PDO::PARAM_STR);
+        $stmt->bindParam(3, $lastname, PDO::PARAM_STR);
+        $stmt->bindParam(4, $password, PDO::PARAM_STR);
+        $stmt->bindParam(5, $email, PDO::PARAM_STR);
+        $stmt->bindParam(6, $image, PDO::PARAM_STR);
+        $stmt->bindParam(7, $role, PDO::PARAM_STR); // figure out default role todo
+        $stmt->bindParam(8, $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 
-    public function deleteUser($id)
+
+    public
+    function deleteUser($id)
     {
         $query = "DELETE FROM " . User::$table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
@@ -231,9 +262,10 @@ class Database
         return $stmt->execute();
     }
 
-    //ORDERS
+//ORDERS
 
-    public function getAllOrders()
+    public
+    function getAllOrders()
     {
         $query = "SELECT * FROM " . Order::$table_name;
         $stmt = $this->conn->query($query);
@@ -252,7 +284,8 @@ class Database
         return $orders;
     }
 
-    public function getOrder($id)
+    public
+    function getOrder($id)
     {
         $query = "SELECT * FROM " . Order::$table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
@@ -270,7 +303,8 @@ class Database
         return $order;
     }
 
-    public function addOrder($price, $transaction, $status, $currency)
+    public
+    function addOrder($price, $transaction, $status, $currency)
     {
         $query = "INSERT INTO " . Order::$table_name . "(price, `transaction`, `status`, currency) VALUES(?,?,?,?)";
         $stmt = $this->conn->prepare($query);
@@ -281,7 +315,8 @@ class Database
         return $stmt->execute();
     }
 
-    public function deleteOrder($id)
+    public
+    function deleteOrder($id)
     {
         $query = "DELETE FROM " . Order::$table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
@@ -289,9 +324,10 @@ class Database
         return $stmt->execute();
     }
 
-    //REPORTS
+//REPORTS
 
-    public function getAllReports()
+    public
+    function getAllReports()
     {
         $query = "SELECT * FROM " . Report::$table_name;
         $stmt = $this->conn->query($query);
@@ -308,7 +344,8 @@ class Database
         return $reports;
     }
 
-    public function getReport($id)
+    public
+    function getReport($id)
     {
         $query = "SELECT * FROM " . Report::$table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
@@ -326,7 +363,8 @@ class Database
         return $order;
     }
 
-    public function addReport($product_id, $user_id, $order_id)
+    public
+    function addReport($product_id, $user_id, $order_id)
     {
         $query = "INSERT INTO " . Report::$table_name . "(product_id, user_id, order_id) VALUES(?,?,?)";
         $stmt = $this->conn->prepare($query);
@@ -336,9 +374,97 @@ class Database
         return $stmt->execute();
     }
 
-    public function deleteReport($id)
+    public
+    function deleteReport($id)
     {
         $query = "DELETE FROM " . Report::$table_name . " WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    //RATING
+
+    public function getAllRatings()
+    {
+        $query = "SELECT * FROM " . Rating::$table_name;
+        $stmt = $this->conn->query($query);
+        $ratings = [];
+        while ($row = $stmt->fetch()) {
+            $rating = new Rating();
+            $rating->id = $row['id'];
+            $rating->product_id = $row['product_id'];
+            $rating->user_id = $row['user_id'];
+            $rating->points = $row['points'];
+            $rating->total = $row['total'];
+            $rating->modified = $row['modified'];
+            array_push($ratings, $rating);
+        }
+        return $ratings;
+    }
+
+    //REVIEWS
+
+    public function getAllReviews()
+    {
+        $query = "SELECT * FROM " . Review::$table_name;
+        $stmt = $this->conn->query($query);
+        $reviews = [];
+        while ($row = $stmt->fetch()) {
+            $review = new Rating();
+            $review->id = $row['id'];
+            $review->product_id = $row['product_id'];
+            $review->user_id = $row['user_id'];
+            $review->review = $row['review'];
+            $review->created = $row['created'];
+            $review->modified = $row['modified'];
+            array_push($reviews, $review);
+        }
+        return $reviews;
+    }
+
+    public function getReview($id)
+    {
+        $query = "SELECT * FROM " . Review::$table_name . " WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $order = null;
+        while ($row = $stmt->fetch()) {
+            $review = new Review();
+            $review->product_id = $row['product_id'];
+            $review->user_id = $row['user_id'];
+            $review->review = $row['review'];
+            $review->created = $row['created'];
+            $review->modified = $row['modified'];
+        }
+        return $order;
+    }
+
+    public function addReview($product_id, $user_id, $review)
+    {
+        $query = "INSERT INTO " . Review::$table_name . "(product_id, user_id, review) VALUES(?,?,?)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $product_id, PDO::PARAM_INT);
+        $stmt->bindParam(2, $user_id, PDO::PARAM_INT);
+        $stmt->bindParam(3, $review, PDO::PARAM_STR);
+        return $stmt->execute();
+    }
+
+    public function updateReview($product_id, $user_id, $review, $id)
+    {
+        $query = "UPDATE " . User::$table_name . " SET product_id = ?, user_id = ?, review = ? WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $product_id, PDO::PARAM_INT);
+        $stmt->bindParam(2, $user_id, PDO::PARAM_INT);
+        $stmt->bindParam(3, $review, PDO::PARAM_STR);
+        $stmt->bindParam(4, $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    public function deleteReview($id)
+    {
+        $query = "DELETE FROM " . Review::$table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         return $stmt->execute();

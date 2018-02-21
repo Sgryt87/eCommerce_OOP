@@ -33,7 +33,10 @@ include '../includes/header.php';
 
                 $db = Database::instance();
                 $orders = $db->getAllOrders();
-
+                if (isset($_POST['id'])) {
+                    $order_delete = $db->deleteOrder($_POST['id']);
+                    //redirect
+                }
                 foreach ($orders as $order) {
                     $orders_display = <<<ORDERS
 
@@ -54,10 +57,6 @@ include '../includes/header.php';
 ORDERS;
                     echo $orders_display;
 
-                    if (isset($_POST['id'])) {
-                        $order_delete = $db->deleteOrder($_POST['id']);
-                        Template::redirect('../orders/index.php');
-                    }
                 }
                 ?>
                 </tbody>

@@ -23,7 +23,7 @@ $product = $db->getProduct($_GET['id']);
                 <div class="col-md-7">
 
 
-                    <img class="img-responsive" src="<?php $product->image ?>"
+                    <img class="img-responsive" src="../media/product_images/<?php echo $product->image ?>"
                          alt="<?php echo $product->title ?>">
 
 
@@ -57,7 +57,7 @@ $product = $db->getProduct($_GET['id']);
 
                             <button class="btn btn-primary" onclick="addToCart(<?php echo $product->id ?>)">Add
                             </button>
-                            <form action="cart/buy.php" method="post">
+                            <form action="../cart/index.php" method="post">
                                 <div class="form-group">
                                     <input type="hidden" value="<?php echo $product->id ?>" name="id" id="productId">
                                     <input type="submit" value="Buy" name="submit" class="btn btn-primary">
@@ -108,7 +108,11 @@ $product = $db->getProduct($_GET['id']);
                                 <h3>2 Reviews From </h3>
 
                                 <hr>
-
+                                <?php
+                                $reviews = $db->getAllReviews();
+                                foreach ($reviews as $review) {
+                                    $reviews_display = <<<REVIEWS
+                                    
                                 <div class="row">
                                     <div class="col-md-12">
                                         <span class="glyphicon glyphicon-star"></span>
@@ -117,46 +121,22 @@ $product = $db->getProduct($_GET['id']);
                                         <span class="glyphicon glyphicon-star"></span>
                                         <span class="glyphicon glyphicon-star-empty"></span>
                                         Anonymous
-                                        <span class="pull-right">10 days ago</span>
-                                        <p>This product was great in terms of quality. I would definitely buy
-                                            another!</p>
+                                        <span class="pull-right">$review->created</span>
+                                        <p>$review->review</p>
                                     </div>
                                 </div>
 
                                 <hr>
+REVIEWS;
+                                    echo $reviews_display;
+                                }
 
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star-empty"></span>
-                                        Anonymous
-                                        <span class="pull-right">12 days ago</span>
-                                        <p>I've alredy ordered another one!</p>
-                                    </div>
-                                </div>
-
-                                <hr>
-
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star"></span>
-                                        <span class="glyphicon glyphicon-star-empty"></span>
-                                        Anonymous
-                                        <span class="pull-right">15 days ago</span>
-                                        <p>I've seen some better than this, but not at this price. I definitely
-                                            recommend this item.</p>
-                                    </div>
-                                </div>
+                                ?>
 
                             </div>
 
 
+                            <?php //include '../rating/index.php'?>
                             <div class="col-md-6">
                                 <h3>Add A review</h3>
 

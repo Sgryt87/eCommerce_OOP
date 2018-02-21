@@ -26,7 +26,7 @@ include '../includes/header.php';
                 <th>Password</th>
                 <th>Email</th>
                 <th>Role</th>
-                <th>Disable Activate Delete</th>
+                <th>Edit</th>
                 <th>Joined</th>
             </tr>
             </thead>
@@ -54,7 +54,7 @@ include '../includes/header.php';
                 <input type="submit" value="Delete" name="delete" class="btn btn-danger btn-sm">
                 </form>
                 </td>
-                <td>$user->created_at</td>  
+                <td>$user->created</td>  
             </tr>
 USERS;
                 echo $users_display;

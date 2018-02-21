@@ -16,6 +16,7 @@ include "models/Product.php";
 include "models/Rating.php";
 include "models/User.php";
 include "models/Report.php";
+include "models/Review.php";
 
 Sessions::start();
 
