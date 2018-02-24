@@ -51,18 +51,13 @@ include '../includes/header.php';
 CHECKOUT;
                         echo $checkout;
                     }
-                    $paypal_btn = <<<BTN
-
-            <input type="image" name="upload"
-                   src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"
-                   alt="PayPal - The safer, easier way to pay online">
-BTN;
-                    echo $paypal_btn;
-                } else {
-                    echo '<h3 class="">Your shopping cart is empty</h3>';
                 }
                 ?>
                 </tbody>
+            </table>
+                <input type="image" name="upload"
+                       src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"
+                       alt="PayPal - The safer, easier way to pay online">
         </form>
 
         <!--  ***********CART TOTALS*************-->

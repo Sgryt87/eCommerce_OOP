@@ -18,6 +18,7 @@
     <link href="../libs/bootstrap/css/shop-homepage.css" rel="stylesheet">
 
     <link href="../css/styles.css" rel="stylesheet">
+    <link href="../css/rating.css" rel="stylesheet">
 
 </head>
 

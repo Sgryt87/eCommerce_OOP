@@ -28,16 +28,17 @@ include 'includes/header.php'; ?>
                     $db = Database::instance();
                     $products = $db->getAllProducts();
                     foreach ($products as $product) {
+                        $description = Utils::shrinkString($product->description);
                         $product_display = <<<PRODUCT
                         
                     <div class="col-sm-4 col-lg-4 col-md-4">
                     <div class="thumbnail">
                         <a href="item.php?id=$product->id"><img src="../media/product_images/{$product->image}"
-                         alt="$product->title"></a>
+                         alt="$product->title" width="200px;"></a>
                         <div class="caption">
                             <h4 class="pull-right">&#36;$product->price</h4>
                             <h4>$product->title</h4>
-                            <p>$product->description</p>
+                            <p>$description</p>
                             <button class="btn btn-primary" onclick="addToCart($product->id)">Add
                             </button>
                             <a href="../products/index.php?id=$product->id" class="btn btn-default" 

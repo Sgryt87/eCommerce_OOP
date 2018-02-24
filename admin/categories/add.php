@@ -6,7 +6,7 @@ $db = Database::instance();
 
 if (isset($_POST['add'])) {
     $title = $_POST['title'];
-    $addCategory = $db->addCategory($title);
+    $db->addCategory($title);
 }
 ?>
 <div class="row">

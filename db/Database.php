@@ -403,6 +403,63 @@ class Database
         return $ratings;
     }
 
+    public function getRating($id)
+    {
+        $query = "SELECT * FROM " . Rating::$table_name . " WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $rating = null;
+        while ($row = $stmt->fetch()) {
+            $rating = new Rating();
+            $rating->product_id = $row['product_id'];
+            $rating->user_id = $row['user_id'];
+            $rating->points = $row['points'];
+            $rating->created = $row['created'];
+            $rating->modified = $row['modified'];
+        }
+        return $rating;
+    }
+
+    public function getRatingByProductAndUserId($product_id, $user_id)
+    {
+        $query = "SELECT * FROM " . Rating::$table_name . " WHERE product_id = ? AND user_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $product_id, PDO::PARAM_INT);
+        $stmt->bindParam(2, $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $rating = null;
+        while ($row = $stmt->fetch()) {
+            $rating = new Rating();
+            $rating->id = $row['id'];
+            $rating->product_id = $row['product_id'];
+            $rating->user_id = $row['user_id'];
+            $rating->points = $row['points'];
+            $rating->created = $row['created'];
+            $rating->modified = $row['modified'];
+        }
+        return $rating;
+    }
+
+    public function addRating($product_id, $user_id, $points)
+    {
+        $query = "INSERT INTO " . Rating::$table_name . "(product_id, user_id, points) VALUES(?,?,?)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $product_id, PDO::PARAM_INT);
+        $stmt->bindParam(2, $user_id, PDO::PARAM_INT);
+        $stmt->bindParam(3, $points, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    public function updateRating($points, $id)
+    {
+        $query = "UPDATE " . Rating::$table_name . " SET points = ? WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $points, PDO::PARAM_INT);
+        $stmt->bindParam(2, $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
     //REVIEWS
 
     public function getAllReviews()
@@ -411,7 +468,7 @@ class Database
         $stmt = $this->conn->query($query);
         $reviews = [];
         while ($row = $stmt->fetch()) {
-            $review = new Rating();
+            $review = new Review();
             $review->id = $row['id'];
             $review->product_id = $row['product_id'];
             $review->user_id = $row['user_id'];

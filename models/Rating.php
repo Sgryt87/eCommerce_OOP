@@ -2,13 +2,12 @@
 
 class Rating
 {
-    public static $table_name = 'rating';
+    public static $table_name = 'ratings';
 
     public $id;
     public $product_id;
-    //public $user_id; todo
+    public $user_id;
     public $points;
-    public $votes;
     public $created;
     public $modified;
 }
