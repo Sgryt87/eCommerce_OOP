@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $("#demo1 .stars").click(function () {
+    $("#ratingField .stars").click(function () {
         $.ajax({
             url: '../rating/rating.php',
             data: {
@@ -8,7 +8,7 @@ $(document).ready(function () {
                 product_id: $('#product_id').val()
             },
             success: function (data) {
-                console.log(data);
+               // console.log(data);
                 // $(this).attr("checked");
             },
             type: 'POST'

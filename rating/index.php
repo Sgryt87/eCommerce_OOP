@@ -22,7 +22,7 @@ $rating = $db->getRatingByProductAndUserId($product->id, $user->id);
 
         <div>
             <h3>Your Rating</h3>
-            <fieldset id='demo1' class="rating">
+            <fieldset id='ratingField' class="rating">
                 <input class="stars" type="radio" id="star5" name="rating"
                        value="5" <?php if (isset($rating)) {
                     echo $rating->points == 5 ? "checked" : '';

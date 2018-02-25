@@ -1,6 +1,15 @@
 <?php
 include_once 'init.php';
 include 'includes/header.php';
+
+if (isset($_POST['submit'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    if (Login::loginUser($username, $password)) {
+        header("Location: index.php");
+    }
+}
 ?>
 
     <!-- Page Content -->
@@ -10,14 +19,19 @@ include 'includes/header.php';
             <h1 class="text-center">Login</h1>
             <h2 class="text-center bg-warning"></h2>
             <div class="col-sm-4 col-sm-offset-5">
-                <form class="" action="" method="post" enctype="multipart/form-data">
-
+                <form class="" action="" method="post">
 
                     <div class="form-group"><label for="">
                             username<input type="text" name="username" class="form-control"></label>
+                        <h5 class="text-center text-danger">
+                            <?php echo Login::getNotification(Notification::$loginError) ?>
+                        </h5>
                     </div>
                     <div class="form-group"><label for="password">
                             Password<input type="password" name="password" class="form-control"></label>
+                        <h5 class="text-center text-danger">
+                            <?php echo Login::getNotification(Notification::$loginError) ?>
+                        </h5>
                     </div>
 
                     <div class="form-group">

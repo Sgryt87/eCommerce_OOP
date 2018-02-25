@@ -7,6 +7,8 @@ include "core/Cart.php";
 include "core/Template.php";
 include "core/File.php";
 include "core/Cookie.php";
+include "core/Registration.php";
+include "core/Notification.php";
 include "core/Login.php";
 
 

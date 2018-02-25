@@ -62,14 +62,18 @@ class Sessions
     */
 
 // for unauthorised users?
+    public static function setUserIfLogged($user)
+    {
+        $_SESSION['user'] = $user;
+    }
 
 
-    static public function setMessage($msg)
+    public static function setMessage($msg)
     {
         $_SESSION['message'] = $msg;
     }
 
-    static public function getMessage()
+    public static function getMessage()
     {
         if (isset($_SESSION['message'])) {
             $message = $_SESSION['message'];
@@ -80,13 +84,13 @@ class Sessions
         }
     }
 
-    static public function start()
+    public static function start()
     {
         ob_start();
         session_start();
     }
 
-    static public function end()
+    public static function end()
     {
         session_destroy();
     }

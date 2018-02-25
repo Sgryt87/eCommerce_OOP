@@ -1,10 +1,9 @@
 <?php
 
-session_start();
-session_destroy();
+
+Login::logout();
 
 header("Location: index.php");
 
 
-
- ?>
+?>

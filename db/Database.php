@@ -219,10 +219,8 @@ class Database
         return $user;
     }
 
-    public
-    function addUser($username, $firstname, $lastname, $password, $email, $image, $role = 'subscriber')
+    public function addUser($username, $firstname, $lastname, $password, $email, $image = '', $role = 'subscriber')
     {
-        $password = User::passwordHash($password);
         $query = "INSERT INTO " . User::$table_name . "(username, firstname, lastname, `password`, email, image, role) VALUES(?,?,?,?,?,?,?)";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $username, PDO::PARAM_STR);
@@ -235,8 +233,7 @@ class Database
         return $stmt->execute();
     }
 
-    public
-    function updateUser($username, $firstname, $lastname, $password, $email, $image, $role, $id)
+    public function updateUser($username, $firstname, $lastname, $password, $email, $image, $role, $id)
     {
         $password = User::passwordHash($password);
         $query = "UPDATE " . User::$table_name . " SET username = ?, firstname = ?, lastname = ?, `password` = ?, email = ?, image =? , role =? WHERE id = ?";
@@ -252,6 +249,46 @@ class Database
         return $stmt->execute();
     }
 
+    public function isUsernameExists($username)
+    {
+        $query = "SELECT username FROM " . User::$table_name . " WHERE username = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $username, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
+
+    public function isUserEmailExists($email)
+    {
+        $query = "SELECT email FROM " . User::$table_name . " WHERE email = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $email, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
+
+    public function getUserByUsername($username)
+    {
+        $query = "SELECT * FROM " . User::$table_name . " WHERE username = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $username, PDO::PARAM_STR);
+        $stmt->execute();
+        $user = null;
+        while ($row = $stmt->fetch()) {
+            $user = new User();
+            $user->id = $row['id'];
+            $user->username = $row['username'];
+            $user->firstname = $row['firstname'];
+            $user->lastname = $row['lastname'];
+            $user->password = $row['password'];
+            $user->role = $row['role'];
+            $user->email = $row['email'];
+            $user->image = $row['image'];
+            $user->created = $row['created'];
+            $user->modified = $row['modified'];
+        }
+        return $user;
+    }
 
     public
     function deleteUser($id)
