@@ -17,4 +17,9 @@ class Utils
             header("Location: $location");
         };
     }
+
+    static public function redirect($location)
+    {
+        header("Location: $location");
+    }
 }

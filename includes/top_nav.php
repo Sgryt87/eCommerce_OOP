@@ -21,9 +21,26 @@
             <li>
                 <a href="../registration.php">Registration</a>
             </li>
+            <?php
+            if (isset($_SESSION['user'])) {
+                $displayName = <<<WELCOME
+                
+            <li><a href="">Welcome, {$_SESSION['user']->username}</a></li>
+            <li><a href="../logout.php">Logout</a></li>
+WELCOME;
+                echo $displayName;
+            } else {
+                $displayLogin = <<<LOGIN
+                
             <li>
                 <a href="../login.php">Login</a>
             </li>
+LOGIN;
+                echo $displayLogin;
+            }
+            ?>
+
+
             <li>
                 <a href="../cart/index.php"><i class="glyphicon glyphicon-shopping-cart"></i>Cart<span
                             id="cartTopNav"><?php echo

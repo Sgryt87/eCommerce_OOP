@@ -34,7 +34,7 @@ class Login
         }
 
         if (password_verify($password, $user->password)) {
-            Sessions::setUserIfLogged($user);
+            Session::setUserIfLogged($user);
             return true;
         } else {
             array_push(self::$notifications, Notification::$loginError);
@@ -44,6 +44,6 @@ class Login
 
     public static function logoutUser()
     {
-        Sessions::end();
+        Session::end();
     }
 }

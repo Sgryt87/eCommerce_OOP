@@ -4,13 +4,13 @@
 class Notification
 {
 
-    public static function getNotification($notification, $notificationArray)
-    {
-        if (!in_array($notification, $notificationArray)) {
-            $notification = '';
-        }
-        return "<span class='errorMessage'>$notification</span>";
-    }
+//    public static function getNotification($notification, $notificationArray)
+//    {
+//        if (!in_array($notification, $notificationArray)) {
+//            $notification = '';
+//        }
+//        return "<span class='errorMessage'>$notification</span>";
+//    }
 
     //REGISTRATION
     public static $usernameReuired = '"Username Is Required';
@@ -39,5 +39,23 @@ class Notification
 
     //LOGIN
     public static $loginError = 'Your Username Or Password Is Not Correct';
+
+    //PRODUCT
+    public static $addedProduct = 'New Product Was Successfully Added';
+    public static $editedProduct = 'The Product Was Successfully Updated';
+
+    //ORDER
+    public static $deletedOrder = 'Order Information Was Deleted';
+
+    //CATEGORY
+    public static $addedCategory = 'New Category Was Successfully Added';
+    public static $editedCategory = 'The Category Was Successfully Edited';
+    public static $deletedCategory = 'The Category Was Successfully Deleted';
+
+    //REPORT
+    public static $deletedReport = 'Report Was Deleted';
+
+    //USER
+
 
 }

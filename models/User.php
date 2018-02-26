@@ -2,7 +2,7 @@
 
 class User
 {
-    static public $table_name = 'users';
+    public static $table_name = 'users';
 
     public $id;
     public $username;
@@ -15,19 +15,4 @@ class User
     public $created;
     public $modified;
 
-
-
-//    public function getUserPassword($id)
-//    {
-//        $this->getUser($id);
-//        $user = self::instance();
-//        return $user->password;
-//    }
-
-
-
-//    public static function passwordVerify($pass)
-//    {
-//        return password_verify($pass, $db_pass);
-//    }
 }

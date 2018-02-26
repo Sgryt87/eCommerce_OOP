@@ -2,6 +2,7 @@
 include '../init.php';
 $active = 'index';
 include 'includes/header.php';
+
 ?>
 
 

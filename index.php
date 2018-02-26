@@ -23,7 +23,6 @@ include 'includes/header.php'; ?>
                 </div>
 
                 <div class="row">
-
                     <?php
                     $db = Database::instance();
                     $products = $db->getAllProducts();

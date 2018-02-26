@@ -1,9 +1,9 @@
 <?php
+include 'init.php';
 
+Login::logoutUser();
 
-Login::logout();
-
-header("Location: index.php");
+Utils::redirect('index.php');
 
 
 ?>

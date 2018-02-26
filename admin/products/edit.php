@@ -21,10 +21,10 @@ if (isset($_POST['publish'])) {
     $unique_img = File::makeImageUnique($image);
     $res = File::uploadProductImage($image_tmp, $unique_img);
     if (!$res) {
-        Sessions::setMessage('Image upload error');
+        Session::setMessage('Image upload error');
     } else {
         File::deleteProductImage($product->image);
-        Sessions::setMessage('Uploaded');
+        Session::setMessage('Uploaded');
     }
     $product = $db->updateProduct($title, $category_id, $price, $quantity, $description, $unique_img, $id);
 }

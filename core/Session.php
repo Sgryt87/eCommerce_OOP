@@ -1,7 +1,7 @@
 <?php
 
 
-class Sessions
+class Session
 {
     // --? check ?? below
     /*
@@ -61,7 +61,17 @@ class Sessions
     }
     */
 
-// for unauthorised users?
+    private static $count;
+
+    public static function visitor_count()
+    {
+        if (isset($_SESSION['count'])) {
+            return self::$count = $_SESSION['count']++;
+        } else {
+            return $_SESSION['count'] = 1;
+        }
+    }
+
     public static function setUserIfLogged($user)
     {
         $_SESSION['user'] = $user;

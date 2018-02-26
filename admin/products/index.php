@@ -8,7 +8,7 @@ include '../includes/header.php';
     All Products
 </h1>
 
-<h3 class="bg-success"><?php echo Sessions::getMessage(); ?></h3>
+<h3 class="bg-success"><?php echo Session::getMessage(); ?></h3>
 <a href="../products/add.php" class="btn btn-default">Add Product</a>
 <br>
 <table class="table table-hover">

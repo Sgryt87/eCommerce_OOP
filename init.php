@@ -1,7 +1,7 @@
 <?php
 
 include "core/Config.php";
-include "core/Sessions.php";
+include "core/Session.php";
 include "core/Utils.php";
 include "core/Cart.php";
 include "core/Template.php";
@@ -21,7 +21,7 @@ include "models/User.php";
 include "models/Report.php";
 include "models/Review.php";
 
-Sessions::start();
+Session::start();
 
 
 
